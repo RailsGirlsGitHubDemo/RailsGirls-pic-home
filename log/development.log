@@ -1,731 +1,1151 @@
+  [1m[36m (140.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (125.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreatePhotos (20150530151806)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  CREATE TABLE "photos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "description" varchar, "picture" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150530151806"]]
+  [1m[35m (78.2ms)[0m  commit transaction
+Migrating to DeviseCreateUsers (20150603185023)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36m (0.0ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150603185023"]]
+  [1m[36m (93.8ms)[0m  [1mcommit transaction[0m
+Migrating to CreateComments (20150603191617)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.0ms)[0m  [1mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "text" varchar, "photo_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150603191617"]]
+  [1m[36m (140.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.0ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
 
 
-Started GET "/" for ::1 at 2015-06-04 22:06:40 +0200
+
+Started GET "/" for ::1 at 2015-06-05 20:43:06 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
 Processing by Rails::WelcomeController#index as HTML
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (1.4ms)
-Completed 200 OK in 15ms (Views: 6.0ms | ActiveRecord: 0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (7.0ms)
+Completed 200 OK in 65ms (Views: 39.5ms | ActiveRecord: 0.0ms)
 
 
-Started GET "/" for ::1 at 2015-06-06 10:14:47 +0200
-Processing by Rails::WelcomeController#index as HTML
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (1.5ms)
-Completed 200 OK in 17ms (Views: 9.5ms | ActiveRecord: 0.0ms)
-
-
-Started GET "/" for ::1 at 2015-06-06 10:16:44 +0200
-
-ActiveRecord::PendingMigrationError (
-
-Migrations are pending. To resolve this issue, run:
-
-	bin/rake db:migrate RAILS_ENV=development
-
-):
-  activerecord (4.2.1) lib/active_record/migration.rb:393:in `check_pending!'
-  activerecord (4.2.1) lib/active_record/migration.rb:374:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `_run_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_call_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/reloader.rb:73:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
-
-
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.0ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (47.9ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (41.1ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (97.1ms)
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:18:17 +0200
-
-ActiveRecord::PendingMigrationError (
-
-Migrations are pending. To resolve this issue, run:
-
-	bin/rake db:migrate RAILS_ENV=development
-
-):
-  activerecord (4.2.1) lib/active_record/migration.rb:393:in `check_pending!'
-  activerecord (4.2.1) lib/active_record/migration.rb:374:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `_run_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_call_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/reloader.rb:73:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
-
-
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.8ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (43.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (1.1ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (44.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (96.1ms)
-
-
-Started GET "/" for ::1 at 2015-06-06 10:19:28 +0200
-
-ActiveRecord::PendingMigrationError (
-
-Migrations are pending. To resolve this issue, run:
-
-	bin/rake db:migrate RAILS_ENV=development
-
-):
-  activerecord (4.2.1) lib/active_record/migration.rb:393:in `check_pending!'
-  activerecord (4.2.1) lib/active_record/migration.rb:374:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `_run_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_call_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/reloader.rb:73:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
-
-
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.8ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (42.1ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (35.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (82.6ms)
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:19:47 +0200
-
-ActiveRecord::PendingMigrationError (
-
-Migrations are pending. To resolve this issue, run:
-
-	bin/rake db:migrate RAILS_ENV=development
-
-):
-  activerecord (4.2.1) lib/active_record/migration.rb:393:in `check_pending!'
-  activerecord (4.2.1) lib/active_record/migration.rb:374:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `_run_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_call_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/reloader.rb:73:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
-
-
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (50.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.8ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (38.1ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (86.5ms)
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:19:53 +0200
-
-ActiveRecord::PendingMigrationError (
-
-Migrations are pending. To resolve this issue, run:
-
-	bin/rake db:migrate RAILS_ENV=development
-
-):
-  activerecord (4.2.1) lib/active_record/migration.rb:393:in `check_pending!'
-  activerecord (4.2.1) lib/active_record/migration.rb:374:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `_run_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_call_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/reloader.rb:73:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
-
-
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.0ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (42.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (36.8ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (81.1ms)
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:19:59 +0200
-
-ActiveRecord::PendingMigrationError (
-
-Migrations are pending. To resolve this issue, run:
-
-	bin/rake db:migrate RAILS_ENV=development
-
-):
-  activerecord (4.2.1) lib/active_record/migration.rb:393:in `check_pending!'
-  activerecord (4.2.1) lib/active_record/migration.rb:374:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `call'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:88:in `_run_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:776:in `_run_call_callbacks'
-  activesupport (4.2.1) lib/active_support/callbacks.rb:81:in `run_callbacks'
-  actionpack (4.2.1) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/reloader.rb:73:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
-
-
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.9ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.2ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (47.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.2ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (38.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (80.5ms)
-  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
-  [1m[35m (0.1ms)[0m  select sqlite_version(*)
-  [1m[36m (1.1ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
-  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
-Migrating to CreatePhotos (20150606081633)
-  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
-  [1m[35m (0.4ms)[0m  CREATE TABLE "photos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "picture" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
-  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150606081633"]]
-  [1m[35m (0.5ms)[0m  commit transaction
-  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:20:27 +0200
-  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Started GET "/photos" for ::1 at 2015-06-05 20:43:14 +0200
 Processing by PhotosController#index as HTML
-  [1m[35mPhoto Load (0.1ms)[0m  SELECT "photos".* FROM "photos"
-  Rendered photos/index.html.erb within layouts/application (2.1ms)
-Completed 200 OK in 1432ms (Views: 1422.6ms | ActiveRecord: 0.2ms)
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:20:29 +0200
-Processing by PhotosController#index as HTML
-  [1m[36mPhoto Load (0.2ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
-  Rendered photos/index.html.erb within layouts/application (1.2ms)
-Completed 200 OK in 52ms (Views: 51.0ms | ActiveRecord: 0.2ms)
-
-
-Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/assets/scaffolds.self-4f290a4e3e122550a86fff47224b233d9cedb58a8585a77306cfc70156188a76.css?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-06 10:20:29 +0200
-
-
-Started GET "/" for ::1 at 2015-06-06 10:20:57 +0200
-  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Processing by Rails::WelcomeController#index as HTML
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/railties-4.2.1/lib/rails/templates/rails/welcome/index.html.erb (2.5ms)
-Completed 200 OK in 17ms (Views: 9.7ms | ActiveRecord: 0.0ms)
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:21:01 +0200
-Processing by PhotosController#index as HTML
-  [1m[35mPhoto Load (0.1ms)[0m  SELECT "photos".* FROM "photos"
-  Rendered photos/index.html.erb within layouts/application (1.6ms)
-Completed 200 OK in 161ms (Views: 159.0ms | ActiveRecord: 0.3ms)
-  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
-
-
-Started GET "/photos" for ::1 at 2015-06-06 10:27:58 +0200
-  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Processing by PhotosController#index as HTML
-  [1m[35mPhoto Load (0.1ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
   Rendered photos/index.html.erb within layouts/application (2.0ms)
-Completed 200 OK in 159ms (Views: 151.3ms | ActiveRecord: 0.2ms)
+  Rendered photos/_form.html.erb (42.3ms)
+Completed 200 OK in 7483ms (Views: 7430.5ms | ActiveRecord: 1.0ms)
 
 
-Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/assets/scaffolds.self-4f290a4e3e122550a86fff47224b233d9cedb58a8585a77306cfc70156188a76.css?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-06 10:27:58 +0200
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started GET "/photos/new" for ::1 at 2015-06-06 10:28:00 +0200
-Processing by PhotosController#new as HTML
-  Rendered photos/_form.html.erb (15.9ms)
-  Rendered photos/new.html.erb within layouts/application (19.6ms)
-Completed 200 OK in 57ms (Views: 53.7ms | ActiveRecord: 0.3ms)
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
 
 
-Started POST "/photos" for ::1 at 2015-06-06 10:28:03 +0200
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-05 20:43:22 +0200
+
+
+Started POST "/photos" for ::1 at 2015-06-05 20:43:33 +0200
 Processing by PhotosController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"mSexBjy9CQXd2JVOPjmTwERZUdA9YoOjr5dCJ2OHuAKX/uAYAFQ0o705gJyEm8p2+cTgNJ+ECqrTfTPz6gze8Q==", "photo"=>{"picture"=>"prueba"}, "commit"=>"Create Photo"}
-  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
-  [1m[35mSQL (0.4ms)[0m  INSERT INTO "photos" ("picture", "created_at", "updated_at") VALUES (?, ?, ?)  [["picture", "prueba"], ["created_at", "2015-06-06 08:28:04.005531"], ["updated_at", "2015-06-06 08:28:04.005531"]]
-  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"F7zSskch3umFx9PUpQiX/p0m5z6+8Ja+fnVAZVEgDagLxNkr9e5lLbIH6ffI7335s3eJdkE7OTUlY4UNshtuEw==", "photo"=>{"picture"=>#<ActionDispatch::Http::UploadedFile:0x503e080 @tempfile=#<Tempfile:C:/Users/FRZ/AppData/Local/Temp/RackMultipart20150605-4588-npwegg.png>, @original_filename="javascript_logo.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"photo[picture]\"; filename=\"javascript_logo.png\"\r\nContent-Type: image/png\r\n">}}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "photos" ("picture", "created_at", "updated_at") VALUES (?, ?, ?)  [["picture", "javascript_logo.png"], ["created_at", "2015-06-05 18:43:33.814127"], ["updated_at", "2015-06-05 18:43:33.814127"]]
+  [1m[36m (84.9ms)[0m  [1mcommit transaction[0m
 Redirected to http://localhost:3000/photos/1
-Completed 302 Found in 11ms (ActiveRecord: 1.2ms)
+Completed 302 Found in 145ms (ActiveRecord: 85.9ms)
 
 
-Started GET "/photos/1" for ::1 at 2015-06-06 10:28:04 +0200
+Started GET "/photos/1" for ::1 at 2015-06-05 20:43:33 +0200
 Processing by PhotosController#show as HTML
   Parameters: {"id"=>"1"}
-  [1m[35mPhoto Load (0.3ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 1]]
-  Rendered photos/show.html.erb within layouts/application (1.4ms)
-Completed 200 OK in 77ms (Views: 58.5ms | ActiveRecord: 0.3ms)
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mComment Load (1.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 1]]
+  Rendered comments/_form.html.erb (48.2ms)
+  Rendered photos/show.html.erb within layouts/application (291.8ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 600ms (Views: 489.3ms | ActiveRecord: 2.0ms)
 
 
-Started GET "/photos/1/edit" for ::1 at 2015-06-06 10:28:06 +0200
-Processing by PhotosController#edit as HTML
+Started GET "/assets/delete-69b2e288b45e86c0745477e6f795e74217a8873feed5a558de0d4aaee3c2acf6.png" for ::1 at 2015-06-05 20:43:34 +0200
+
+
+Started POST "/comments" for ::1 at 2015-06-05 20:43:42 +0200
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"yBogYey/cVSa+FPt+3pxmognz7Xp+X/ksis6fsnHGmvUYiv4XnDKkK04ac6WnZudpnah/RYy0G/pPf8WKvx50A==", "comment"=>{"text"=>"lolasoo", "photo_id"=>"1"}, "commit"=>"Create Comment"}
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "comments" ("text", "photo_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["text", "lolasoo"], ["photo_id", 1], ["created_at", "2015-06-05 18:43:42.522722"], ["updated_at", "2015-06-05 18:43:42.522722"]]
+  [1m[35m (172.2ms)[0m  commit transaction
+  [1m[36mPhoto Load (1.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/photos/1
+Completed 302 Found in 184ms (ActiveRecord: 174.2ms)
+
+
+Started GET "/photos/1" for ::1 at 2015-06-05 20:43:42 +0200
+Processing by PhotosController#show as HTML
   Parameters: {"id"=>"1"}
-  [1m[36mPhoto Load (0.1ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 1]]
-  Rendered photos/_form.html.erb (1.5ms)
-  Rendered photos/edit.html.erb within layouts/application (5.9ms)
-Completed 200 OK in 53ms (Views: 51.9ms | ActiveRecord: 0.1ms)
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 1]]
+  Rendered comments/_form.html.erb (1.0ms)
+  Rendered photos/show.html.erb within layouts/application (13.0ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 224ms (Views: 221.2ms | ActiveRecord: 1.0ms)
 
 
-Started GET "/photos" for ::1 at 2015-06-06 10:28:07 +0200
+Started DELETE "/photos/1" for ::1 at 2015-06-05 20:43:54 +0200
+Processing by PhotosController#destroy as HTML
+  Parameters: {"authenticity_token"=>"L30b5DMgA2vQA5sTepDLaH1dP9k82NCzwU5MKnA9CIkzBRB9ge+4r+fDoTAXdyFvUwxRkcMTfziaWIlCkwZrMg==", "id"=>"1"}
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  DELETE FROM "photos" WHERE "photos"."id" = ?  [["id", 1]]
+  [1m[36m (99.0ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/photos
+Completed 302 Found in 108ms (ActiveRecord: 101.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 20:43:54 +0200
 Processing by PhotosController#index as HTML
-  [1m[35mPhoto Load (0.3ms)[0m  SELECT "photos".* FROM "photos"
-  Rendered photos/index.html.erb within layouts/application (3.1ms)
-Completed 200 OK in 45ms (Views: 43.5ms | ActiveRecord: 0.3ms)
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  Rendered photos/index.html.erb within layouts/application (1.0ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 203ms (Views: 202.4ms | ActiveRecord: 0.0ms)
 
 
-Started GET "/photos" for ::1 at 2015-06-06 10:43:08 +0200
-  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
-Processing by PhotosController#index as HTML
-  [1m[35mPhoto Load (0.4ms)[0m  SELECT "photos".* FROM "photos"
-  Rendered photos/index.html.erb within layouts/application (16.4ms)
-Completed 200 OK in 275ms (Views: 263.5ms | ActiveRecord: 0.7ms)
-
-
-Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/assets/scaffolds.self-4f290a4e3e122550a86fff47224b233d9cedb58a8585a77306cfc70156188a76.css?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-06 10:43:09 +0200
-
-
-Started GET "/uploads/photo/picture/1/prueba" for ::1 at 2015-06-06 10:43:09 +0200
-
-ActionController::RoutingError (No route matches [GET] "/uploads/photo/picture/1/prueba"):
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
-
-
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (7.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (98.9ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (46.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (101.9ms)
-
-
-Started GET "/photos/new" for ::1 at 2015-06-06 10:43:34 +0200
-Processing by PhotosController#new as HTML
-  Rendered photos/_form.html.erb (12.4ms)
-  Rendered photos/new.html.erb within layouts/application (14.8ms)
-Completed 200 OK in 46ms (Views: 45.0ms | ActiveRecord: 0.0ms)
-
-
-Started POST "/photos" for ::1 at 2015-06-06 10:43:43 +0200
+Started POST "/photos" for ::1 at 2015-06-05 20:44:02 +0200
 Processing by PhotosController#create as HTML
-  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GxRj0nY+2W0QJxwVHgYk9/tH9TlDarMFXfGq93c/5doVzTLMStfky3DGCcekpH1BRtpE3eGMOgwhG9sj/rSDKQ==", "photo"=>{"picture"=>#<ActionDispatch::Http::UploadedFile:0x007ff4e592b508 @tempfile=#<Tempfile:/var/folders/q8/j63lpkcj1859j5yv5h13bd9m0000gn/T/RackMultipart20150606-1810-1vo88i7.jpg>, @original_filename="Wallpaper.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"photo[picture]\"; filename=\"Wallpaper.jpg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Create Photo"}
-  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
-  [1m[35mSQL (0.9ms)[0m  INSERT INTO "photos" ("picture", "created_at", "updated_at") VALUES (?, ?, ?)  [["picture", "Wallpaper.jpg"], ["created_at", "2015-06-06 08:43:43.888413"], ["updated_at", "2015-06-06 08:43:43.888413"]]
-  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"pHtsgaxoZo5rWuyranZtV6X3ULGJfQNZyNFRVniqgaG4A2cYHqfdSlya1ogHkYdQi6Y++Xa2rNKTx5Q+m5HiGg==", "photo"=>{"picture"=>#<ActionDispatch::Http::UploadedFile:0x80aea78 @tempfile=#<Tempfile:C:/Users/FRZ/AppData/Local/Temp/RackMultipart20150605-4588-2bn62s.png>, @original_filename="HTML5_Logo_512.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"photo[picture]\"; filename=\"HTML5_Logo_512.png\"\r\nContent-Type: image/png\r\n">}}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (2.0ms)[0m  INSERT INTO "photos" ("picture", "created_at", "updated_at") VALUES (?, ?, ?)  [["picture", "HTML5_Logo_512.png"], ["created_at", "2015-06-05 18:44:02.317573"], ["updated_at", "2015-06-05 18:44:02.317573"]]
+  [1m[36m (158.7ms)[0m  [1mcommit transaction[0m
 Redirected to http://localhost:3000/photos/2
-Completed 302 Found in 55ms (ActiveRecord: 1.8ms)
+Completed 302 Found in 210ms (ActiveRecord: 160.7ms)
 
 
-Started GET "/photos/2" for ::1 at 2015-06-06 10:43:43 +0200
+Started GET "/photos/2" for ::1 at 2015-06-05 20:44:02 +0200
 Processing by PhotosController#show as HTML
   Parameters: {"id"=>"2"}
-  [1m[35mPhoto Load (0.2ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 2]]
-  Rendered photos/show.html.erb within layouts/application (1.7ms)
-Completed 200 OK in 70ms (Views: 56.8ms | ActiveRecord: 0.2ms)
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 2]]
+  Rendered comments/_form.html.erb (1.0ms)
+  Rendered photos/show.html.erb within layouts/application (12.4ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 224ms (Views: 221.2ms | ActiveRecord: 1.0ms)
 
 
-Started GET "/photos" for ::1 at 2015-06-06 10:43:48 +0200
+Started GET "/photos" for ::1 at 2015-06-05 20:44:07 +0200
 Processing by PhotosController#index as HTML
-  [1m[36mPhoto Load (0.4ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
-  Rendered photos/index.html.erb within layouts/application (4.3ms)
-Completed 200 OK in 34ms (Views: 32.8ms | ActiveRecord: 0.4ms)
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 2]]
+  Rendered photos/index.html.erb within layouts/application (269.0ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 450ms (Views: 449.5ms | ActiveRecord: 1.0ms)
 
 
-Started GET "/uploads/photo/picture/1/prueba" for ::1 at 2015-06-06 10:43:48 +0200
-
-ActionController::RoutingError (No route matches [GET] "/uploads/photo/picture/1/prueba"):
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+Started GET "/assets/coment-relaxed-19f414eed42ab140b683afc2de48bf4c19f0c1c1559f18b1ab0f3d3acc98996b.png" for ::1 at 2015-06-05 20:44:07 +0200
 
 
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb (2.1ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.2ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (80.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (42.8ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (2.0ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (99.4ms)
+Started GET "/photos/2" for ::1 at 2015-06-05 20:44:11 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mComment Load (0.0ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 2]]
+  Rendered comments/_form.html.erb (0.0ms)
+  Rendered photos/show.html.erb within layouts/application (15.6ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 236ms (Views: 232.1ms | ActiveRecord: 0.0ms)
 
 
-Started GET "/photos" for ::1 at 2015-06-06 10:50:54 +0200
+Started POST "/comments" for ::1 at 2015-06-05 20:44:16 +0200
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"25Q3h+fI0kpZxZA1Eey8+o4xlgovjdNAvjV9M0zfOrHH7DweVQdpjm4FqhZ8C1b9oGD4QtBGfMvlI7hbr+RZCg==", "comment"=>{"text"=>"pepeaso", "photo_id"=>"2"}, "commit"=>"Create Comment"}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (2.0ms)[0m  INSERT INTO "comments" ("text", "photo_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["text", "pepeaso"], ["photo_id", 2], ["created_at", "2015-06-05 18:44:16.986178"], ["updated_at", "2015-06-05 18:44:16.986178"]]
+  [1m[36m (96.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 2]]
+Redirected to http://localhost:3000/photos/2
+Completed 302 Found in 109ms (ActiveRecord: 99.2ms)
+
+
+Started GET "/photos/2" for ::1 at 2015-06-05 20:44:17 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mComment Load (0.0ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 2]]
+  Rendered comments/_form.html.erb (1.0ms)
+  Rendered photos/show.html.erb within layouts/application (14.0ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 218ms (Views: 215.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 20:44:21 +0200
 Processing by PhotosController#index as HTML
-  [1m[35mPhoto Load (0.1ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36mPhoto Load (1.0ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 2]]
+  Rendered photos/index.html.erb within layouts/application (261.3ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 481ms (Views: 479.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/coment-active-c81ec94e2062c109987840402e53497144861b8ec88d1776e3963ea57f11b9f3.png" for ::1 at 2015-06-05 20:44:22 +0200
+
+
+Started GET "/photos/2" for ::1 at 2015-06-05 20:44:24 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 2]]
+  Rendered comments/_form.html.erb (1.0ms)
+  Rendered photos/show.html.erb within layouts/application (15.0ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 216ms (Views: 212.8ms | ActiveRecord: 1.0ms)
+
+
+Started DELETE "/photos/2" for ::1 at 2015-06-05 20:44:31 +0200
+Processing by PhotosController#destroy as HTML
+  Parameters: {"authenticity_token"=>"4BcrJQulhCVV/8qHSEKiDY/UMzkkzScCtvy7aIIrcPD8byC8uWo/4WI/8KQlpUgKoYVdcdsGiInt6n4AYRATSw==", "id"=>"2"}
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.0ms)[0m  DELETE FROM "photos" WHERE "photos"."id" = ?  [["id", 2]]
+  [1m[36m (68.2ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/photos
+Completed 302 Found in 78ms (ActiveRecord: 69.2ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 20:44:31 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT "photos".* FROM "photos"
+  Rendered photos/index.html.erb within layouts/application (2.3ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 211ms (Views: 209.3ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:28:16 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  Rendered photos/index.html.erb within layouts/application (9.1ms)
+  Rendered photos/_form.html.erb (42.2ms)
+Completed 200 OK in 549ms (Views: 495.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:29:08 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT "photos".* FROM "photos"
+  Rendered photos/index.html.erb within layouts/application (7.7ms)
+  Rendered photos/_form.html.erb (42.0ms)
+Completed 200 OK in 579ms (Views: 498.5ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:29:08 +0200
+
+
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-05 23:29:09 +0200
+
+
+Started POST "/photos" for ::1 at 2015-06-05 23:29:22 +0200
+Processing by PhotosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"sZsz44WkoTbysz/D9StvWghjCf1Aj8Xxq2fJ640buOOt4zh6N2sa8sVzBeCYzIVdJjJntb9EanrwcQyDbiDbWA=="}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+ActionController::ParameterMissing (param is missing or the value is empty: photo):
+  app/controllers/photos_controller.rb:75:in `photo_params'
+  app/controllers/photos_controller.rb:30:in `create'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (116.5ms)
+Cannot render console with content type multipart/form-dataAllowed content types: [#<Mime::Type:0x2864808 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x2864040 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x28ee8b0 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:30:30 +0200
+Processing by PhotosController#index as HTML
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
   Rendered photos/index.html.erb within layouts/application (2.0ms)
-Completed 200 OK in 38ms (Views: 36.8ms | ActiveRecord: 0.1ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 214ms (Views: 212.6ms | ActiveRecord: 0.0ms)
 
 
-Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/assets/scaffolds.self-4f290a4e3e122550a86fff47224b233d9cedb58a8585a77306cfc70156188a76.css?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-06 10:50:54 +0200
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-Started GET "/uploads/photo/picture/1/prueba" for ::1 at 2015-06-06 10:50:54 +0200
-
-ActionController::RoutingError (No route matches [GET] "/uploads/photo/picture/1/prueba"):
-  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
-  web-console (2.1.2) lib/web_console/middleware.rb:37:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
-  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
-  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
-  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
-  rack (1.6.1) lib/rack/methodoverride.rb:22:in `call'
-  rack (1.6.1) lib/rack/runtime.rb:18:in `call'
-  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  actionpack (4.2.1) lib/action_dispatch/middleware/static.rb:113:in `call'
-  rack (1.6.1) lib/rack/sendfile.rb:113:in `call'
-  railties (4.2.1) lib/rails/engine.rb:518:in `call'
-  railties (4.2.1) lib/rails/application.rb:164:in `call'
-  rack (1.6.1) lib/rack/lock.rb:17:in `call'
-  rack (1.6.1) lib/rack/content_length.rb:15:in `call'
-  rack (1.6.1) lib/rack/handler/webrick.rb:89:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
-  /Users/Gnzlt/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
 
 
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.2ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.7ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/routes/_table.html.erb (1.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (79.2ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (36.9ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
-  Rendered /Users/Gnzlt/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (89.6ms)
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-05 23:30:30 +0200
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:32:11 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT "photos".* FROM "photos"
+  Rendered photos/index.html.erb within layouts/application (1.7ms)
+  Rendered photos/_form.html.erb (2.0ms)
+Completed 200 OK in 211ms (Views: 208.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-05 23:32:12 +0200
+
+
+Started POST "/photos" for ::1 at 2015-06-05 23:32:22 +0200
+Processing by PhotosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"PT4tpguKyQS/NIaDJkAZVYky1EF1c9fD1NIzYbPXoqwhRiY/uUVywIj0vKBLp/NSp2O6CYq4eEiPxPYJUOzBFw==", "photo"=>{"picture"=>#<ActionDispatch::Http::UploadedFile:0x44fec68 @tempfile=#<Tempfile:C:/Users/FRZ/AppData/Local/Temp/RackMultipart20150605-3376-onwj0j.png>, @original_filename="javascript_logo.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"photo[picture]\"; filename=\"javascript_logo.png\"\r\nContent-Type: image/png\r\n">}}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (3.0ms)[0m  INSERT INTO "photos" ("picture", "created_at", "updated_at") VALUES (?, ?, ?)  [["picture", "javascript_logo.png"], ["created_at", "2015-06-05 21:32:22.323048"], ["updated_at", "2015-06-05 21:32:22.323048"]]
+  [1m[36m (202.3ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/photos/3
+Completed 302 Found in 489ms (ActiveRecord: 205.3ms)
+
+
+Started GET "/photos/3" for ::1 at 2015-06-05 23:32:22 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  Rendered comments/_form.html.erb (24.7ms)
+  Rendered photos/show.html.erb within layouts/application (39.7ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 384ms (Views: 240.5ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:32:25 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (17.2ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 229ms (Views: 229.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/photos" for ::1 at 2015-06-05 23:32:29 +0200
+Processing by PhotosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"z0XIyxL7OatkfEJzGWghmrDJDZAhWESi7qwv0zE9AU3TPcNSoDSCb1O8eFB0j8udnphj2N6T6ym1uuq70gZi9g=="}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+ActionController::ParameterMissing (param is missing or the value is empty: photo):
+  app/controllers/photos_controller.rb:75:in `photo_params'
+  app/controllers/photos_controller.rb:30:in `create'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (115.1ms)
+Cannot render console with content type multipart/form-dataAllowed content types: [#<Mime::Type:0x2864808 @synonyms=["application/xhtml+xml"], @symbol=:html, @string="text/html">, #<Mime::Type:0x2864040 @synonyms=[], @symbol=:text, @string="text/plain">, #<Mime::Type:0x28ee8b0 @synonyms=[], @symbol=:url_encoded_form, @string="application/x-www-form-urlencoded">]
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:32:53 +0200
+Processing by PhotosController#index as HTML
+  [1m[36mPhoto Load (1.3ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (10.9ms)
+  Rendered photos/_form.html.erb (5.0ms)
+Completed 500 Internal Server Error in 189ms (ActiveRecord: 1.3ms)
+
+ActionView::Template::Error (wrong number of arguments (0 for 1..2)):
+    3:     <button class="upload_button">Upload photo</button>
+    4: 
+    5: 	
+    6:     <input id="file_photo" value="<%= f.file_field %>" required>
+    7: 
+    8:     <%= f.file_field :picture, { id: "upload"} %>
+    9:   </div>
+  app/views/photos/_form.html.erb:6:in `block in _app_views_photos__form_html_erb___599726920_66018504'
+  app/views/photos/_form.html.erb:1:in `_app_views_photos__form_html_erb___599726920_66018504'
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__721849206_40938288'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (115.9ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (119.3ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (307.4ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:33:10 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (10.2ms)
+  Rendered photos/_form.html.erb (15.6ms)
+Completed 500 Internal Server Error in 226ms (ActiveRecord: 1.0ms)
+
+ActionView::Template::Error (wrong number of arguments (0 for 1..2)):
+    3:     <button class="upload_button">Upload photo</button>
+    4: 
+    5: 	
+    6:     <input id="file_photo" value="<%= f.file_field %>" required>
+    7: 
+    8:     <%= f.file_field :picture, { id: "upload"} %>
+    9:   </div>
+  app/views/photos/_form.html.erb:6:in `block in _app_views_photos__form_html_erb___599726920_66018504'
+  app/views/photos/_form.html.erb:1:in `_app_views_photos__form_html_erb___599726920_66018504'
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__721849206_40938288'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (115.5ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (118.6ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (267.5ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:33:11 +0200
+Processing by PhotosController#index as HTML
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (9.9ms)
+  Rendered photos/_form.html.erb (5.0ms)
+Completed 500 Internal Server Error in 219ms (ActiveRecord: 1.0ms)
+
+ActionView::Template::Error (wrong number of arguments (0 for 1..2)):
+    3:     <button class="upload_button">Upload photo</button>
+    4: 
+    5: 	
+    6:     <input id="file_photo" value="<%= f.file_field %>" required>
+    7: 
+    8:     <%= f.file_field :picture, { id: "upload"} %>
+    9:   </div>
+  app/views/photos/_form.html.erb:6:in `block in _app_views_photos__form_html_erb___599726920_66018504'
+  app/views/photos/_form.html.erb:1:in `_app_views_photos__form_html_erb___599726920_66018504'
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__721849206_40938288'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (115.1ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (118.1ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (269.2ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:33:40 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (9.6ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 182ms (Views: 180.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/assets/coment-relaxed-19f414eed42ab140b683afc2de48bf4c19f0c1c1559f18b1ab0f3d3acc98996b.png" for ::1 at 2015-06-05 23:33:40 +0200
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:34:02 +0200
+Processing by PhotosController#index as HTML
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (12.0ms)
+  Rendered photos/_form.html.erb (14.3ms)
+Completed 500 Internal Server Error in 234ms (ActiveRecord: 0.0ms)
+
+ActionView::Template::Error (undefined method `url' for #<ActionView::Helpers::FormBuilder:0x741c708>):
+    3:     <button class="upload_button">Upload photo</button>
+    4: 
+    5: 	
+    6:     <input id="file_photo" value="<%= f.url %>" required>
+    7: 
+    8:     <%= f.file_field :picture, { id: "upload"} %>
+    9:   </div>
+  app/views/photos/_form.html.erb:6:in `block in _app_views_photos__form_html_erb___599726920_60519876'
+  app/views/photos/_form.html.erb:1:in `_app_views_photos__form_html_erb___599726920_60519876'
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__721849206_40938288'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (116.1ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (120.3ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (272.6ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:34:14 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (11.0ms)
+  Rendered photos/_form.html.erb (15.0ms)
+Completed 500 Internal Server Error in 230ms (ActiveRecord: 1.0ms)
+
+ActionView::Template::Error (undefined local variable or method `picture' for #<#<Class:0x44c5b78>:0x51b4828>):
+    3:     <button class="upload_button">Upload photo</button>
+    4: 
+    5: 	
+    6:     <input id="file_photo" value="<%= picture.url %>" required>
+    7: 
+    8:     <%= f.file_field :picture, { id: "upload"} %>
+    9:   </div>
+  app/views/photos/_form.html.erb:6:in `block in _app_views_photos__form_html_erb___599726920_63602940'
+  app/views/photos/_form.html.erb:1:in `_app_views_photos__form_html_erb___599726920_63602940'
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__721849206_40938288'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (116.1ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (120.3ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (271.4ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:34:21 +0200
+Processing by PhotosController#index as HTML
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (10.9ms)
+  Rendered photos/_form.html.erb (49.9ms)
+Completed 500 Internal Server Error in 230ms (ActiveRecord: 1.0ms)
+
+ActionView::Template::Error (undefined local variable or method `picture' for #<#<Class:0x44c5b78>:0x50a66a8>):
+    3:     <button class="upload_button">Upload photo</button>
+    4: 
+    5: 	
+    6:     <input id="file_photo" value="<%= picture.path %>" required>
+    7: 
+    8:     <%= f.file_field :picture, { id: "upload"} %>
+    9:   </div>
+  app/views/photos/_form.html.erb:6:in `block in _app_views_photos__form_html_erb___599726920_61841124'
+  app/views/photos/_form.html.erb:1:in `_app_views_photos__form_html_erb___599726920_61841124'
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__721849206_40938288'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (118.2ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (119.1ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (269.3ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:34:34 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  Rendered photos/index.html.erb within layouts/application (11.0ms)
+  Rendered photos/_form.html.erb (2.0ms)
+Completed 200 OK in 219ms (Views: 216.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started GET "/assets/coment-relaxed-19f414eed42ab140b683afc2de48bf4c19f0c1c1559f18b1ab0f3d3acc98996b.png" for ::1 at 2015-06-05 23:34:35 +0200
+
+
+Started POST "/photos" for ::1 at 2015-06-05 23:34:46 +0200
+Processing by PhotosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"RaYqozQfx9WNzaqkK8Ie7kz1vYYed6vsLCo717JopQBZ3iE6htB8EboNkIdGJfTpYqTTzuG8BGd3PP6/UVPGuw==", "photo"=>{"picture"=>#<ActionDispatch::Http::UploadedFile:0x5235ee8 @tempfile=#<Tempfile:C:/Users/FRZ/AppData/Local/Temp/RackMultipart20150605-3376-10a4lmh.png>, @original_filename="javascript_logo.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"photo[picture]\"; filename=\"javascript_logo.png\"\r\nContent-Type: image/png\r\n">}}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "photos" ("picture", "created_at", "updated_at") VALUES (?, ?, ?)  [["picture", "javascript_logo.png"], ["created_at", "2015-06-05 21:34:46.957624"], ["updated_at", "2015-06-05 21:34:46.957624"]]
+  [1m[36m (109.3ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/photos/4
+Completed 302 Found in 172ms (ActiveRecord: 110.3ms)
+
+
+Started GET "/photos/4" for ::1 at 2015-06-05 23:34:47 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mComment Load (1.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  Rendered comments/_form.html.erb (1.0ms)
+  Rendered photos/show.html.erb within layouts/application (18.0ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 237ms (Views: 230.5ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/photos/4" for ::1 at 2015-06-05 23:36:15 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  Rendered comments/_form.html.erb (1.0ms)
+  Rendered photos/show.html.erb within layouts/application (13.2ms)
+  Rendered photos/_form.html.erb (7.0ms)
+Completed 500 Internal Server Error in 228ms (ActiveRecord: 1.0ms)
+
+ActionView::Template::Error (undefined method `url' for #<Photo:0x52bf270>):
+    3:     <button class="upload_button">Upload photo</button>
+    4: 
+    5: 	
+    6:     <input id="file_photo" value="<%= @photo.url %>" required>
+    7: 
+    8:     <%= f.file_field :picture, { id: "upload"} %>
+    9:   </div>
+  app/views/photos/_form.html.erb:6:in `block in _app_views_photos__form_html_erb___599726920_44933892'
+  app/views/photos/_form.html.erb:1:in `_app_views_photos__form_html_erb___599726920_44933892'
+  app/views/layouts/application.html.erb:18:in `_app_views_layouts_application_html_erb__721849206_40938288'
+
+
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/actionpack-4.2.1/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (116.1ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_markup.html.erb (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/console.js.erb within layouts/javascript (120.6ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.0ms)
+  Rendered C:/RailsInstaller/Ruby2.0.0/lib/ruby/gems/2.0.0/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (272.1ms)
+
+
+Started GET "/photos/4" for ::1 at 2015-06-05 23:36:56 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  Rendered comments/_form.html.erb (1.0ms)
+  Rendered photos/show.html.erb within layouts/application (13.2ms)
+  Rendered photos/_form.html.erb (1.0ms)
+Completed 200 OK in 223ms (Views: 219.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/assets/delete-69b2e288b45e86c0745477e6f795e74217a8873feed5a558de0d4aaee3c2acf6.png" for ::1 at 2015-06-05 23:36:56 +0200
+
+
+Started GET "/photos" for ::1 at 2015-06-05 23:37:00 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (1.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 4]]
+  Rendered photos/index.html.erb within layouts/application (55.0ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 225ms (Views: 223.3ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-06 10:45:45 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 4]]
+  Rendered photos/index.html.erb within layouts/application (500.7ms)
+  Rendered photos/_form.html.erb (171.1ms)
+Completed 200 OK in 2156ms (Views: 1943.9ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/assets/comments.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/main.self-274e9c1924942c6d8c1d60d80e9fa6c3e0c8c938aa31e575f13a4932ec9f2597.css?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/photos.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/scaffolds.self-aeeb58b44627b2c313bccc76b11d5fe21bed4b8047c6167b5fa8db14d6b990a6.css?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/vendor.self-7a27926e575abf1849e55eff01d920f622ec052079e5227cce3406a975fe787d.css?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/jquery.self-d03a5518f45df77341bdbe6201ba3bfa547ebba8ed64f0ea56bfa5f96ea7c074.js?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/jquery_ujs.self-8e98a7a072a6cee1372d19fff9ff3e6aa1e39a37d89d6f06861637d061113ee7.js?body=1" for ::1 at 2015-06-06 10:45:47 +0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-06-06 10:45:48 +0200
+
+
+Started GET "/assets/comments.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-06 10:45:48 +0200
+
+
+Started GET "/assets/main.self-f86885a4181db066c8925a68dee13df21d91083f54e6f1d570d5879252cac91d.js?body=1" for ::1 at 2015-06-06 10:45:48 +0200
+
+
+Started GET "/assets/photos.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-06-06 10:45:48 +0200
+
+
+Started GET "/assets/vendor.self-cd1c4d6fa4336a15fbb7e92b46195b31ab494d59669d448f1c38e3b394ffb438.js?body=1" for ::1 at 2015-06-06 10:45:48 +0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-06-06 10:45:48 +0200
+
+
+Started GET "/assets/coment-relaxed-19f414eed42ab140b683afc2de48bf4c19f0c1c1559f18b1ab0f3d3acc98996b.png" for ::1 at 2015-06-06 10:45:48 +0200
+
+
+Started POST "/photos" for ::1 at 2015-06-06 10:46:16 +0200
+Processing by PhotosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"2/3L66W22uMUPDsuaaqVmozs1viMuqQBG1bZHqZZXfORItsGV7ygnDX4vPiVvWv4ydyNd+WqjzZWV50RcHJaOQ==", "photo"=>{"picture"=>#<ActionDispatch::Http::UploadedFile:0x51acc80 @tempfile=#<Tempfile:C:/Users/FRZ/AppData/Local/Temp/RackMultipart20150606-6024-vug2ns.png>, @original_filename="Ruby_on_Rails.svg.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"photo[picture]\"; filename=\"Ruby_on_Rails.svg.png\"\r\nContent-Type: image/png\r\n">}}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "photos" ("picture", "created_at", "updated_at") VALUES (?, ?, ?)  [["picture", "Ruby_on_Rails.svg.png"], ["created_at", "2015-06-06 08:46:16.348655"], ["updated_at", "2015-06-06 08:46:16.348655"]]
+  [1m[36m (87.3ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/photos/5
+Completed 302 Found in 137ms (ActiveRecord: 87.3ms)
+
+
+Started GET "/photos/5" for ::1 at 2015-06-06 10:46:16 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 5]]
+  Rendered comments/_form.html.erb (297.1ms)
+  Rendered photos/show.html.erb within layouts/application (345.1ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 871ms (Views: 714.7ms | ActiveRecord: 4.0ms)
+
+
+Started POST "/comments" for ::1 at 2015-06-06 10:46:41 +0200
+Processing by CommentsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"4aRBXZIhzRp/PHQkmkVZVonNUOsZuiP2/clJV7VF2uure1GwYCu3ZV748/JmUqc0zP0LZHCqCMGwyA1YY27dIQ==", "comment"=>{"text"=>"hola", "photo_id"=>"5"}, "commit"=>"Create Comment"}
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (4.0ms)[0m  [1mINSERT INTO "comments" ("text", "photo_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["text", "hola"], ["photo_id", 5], ["created_at", "2015-06-06 08:46:41.707019"], ["updated_at", "2015-06-06 08:46:41.707019"]]
+  [1m[35m (85.7ms)[0m  commit transaction
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 5]]
+Redirected to http://localhost:3000/photos/5
+Completed 302 Found in 106ms (ActiveRecord: 89.7ms)
+
+
+Started GET "/photos/5" for ::1 at 2015-06-06 10:46:41 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mComment Load (0.0ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 5]]
+  Rendered comments/_form.html.erb (0.0ms)
+  Rendered photos/show.html.erb within layouts/application (24.0ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 304ms (Views: 300.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-06 10:46:59 +0200
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (4.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 4]]
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 5]]
+  Rendered photos/index.html.erb within layouts/application (92.0ms)
+  Rendered photos/_form.html.erb (4.0ms)
+Completed 200 OK in 452ms (Views: 448.1ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/photos/5" for ::1 at 2015-06-06 10:47:07 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mComment Load (15.6ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 5]]
+  Rendered comments/_form.html.erb (0.0ms)
+  Rendered photos/show.html.erb within layouts/application (46.9ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 290ms (Views: 273.9ms | ActiveRecord: 15.6ms)
+
+
+Started DELETE "/photos/5" for ::1 at 2015-06-06 10:47:16 +0200
+Processing by PhotosController#destroy as HTML
+  Parameters: {"authenticity_token"=>"aqDcxdEAtWrHuL/hdZzjW87WWQWpbMHO6QMPoIlu0R4gf8woIwrPFeZ8ODeJix05i+YCisB86vmkAkuvX0XW1A==", "id"=>"5"}
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.0ms)[0m  [1mDELETE FROM "photos" WHERE "photos"."id" = ?[0m  [["id", 5]]
+  [1m[35m (109.3ms)[0m  commit transaction
+Redirected to http://localhost:3000/photos
+Completed 302 Found in 177ms (ActiveRecord: 109.3ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-06 10:47:16 +0200
+Processing by PhotosController#index as HTML
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35m (4.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 4]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  Rendered photos/index.html.erb within layouts/application (48.0ms)
+  Rendered photos/_form.html.erb (4.0ms)
+Completed 200 OK in 476ms (Views: 472.4ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-06 13:40:54 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PhotosController#index as HTML
+  [1m[35mPhoto Load (0.0ms)[0m  SELECT "photos".* FROM "photos"
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 4]]
+  Rendered photos/index.html.erb within layouts/application (312.0ms)
+  Rendered photos/_form.html.erb (96.0ms)
+Completed 200 OK in 1076ms (Views: 940.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/photos/3" for ::1 at 2015-06-06 13:41:01 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mComment Load (0.0ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  Rendered comments/_form.html.erb (32.0ms)
+  Rendered photos/show.html.erb within layouts/application (88.0ms)
+  Rendered photos/_form.html.erb (0.0ms)
+Completed 200 OK in 414ms (Views: 354.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/photos/4" for ::1 at 2015-06-06 13:41:05 +0200
+Processing by PhotosController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT  "photos".* FROM "photos" WHERE "photos"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mComment Load (0.0ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 4]]
+  Rendered comments/_form.html.erb (4.0ms)
+  Rendered photos/show.html.erb within layouts/application (20.0ms)
+  Rendered photos/_form.html.erb (4.0ms)
+Completed 200 OK in 337ms (Views: 333.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/photos" for ::1 at 2015-06-06 13:41:38 +0200
+Processing by PhotosController#index as HTML
+  [1m[36mPhoto Load (0.0ms)[0m  [1mSELECT "photos".* FROM "photos"[0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 3]]
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?  [["photo_id", 4]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM "comments" WHERE "comments"."photo_id" = ?[0m  [["photo_id", 4]]
+  Rendered photos/index.html.erb within layouts/application (24.0ms)
+  Rendered photos/_form.html.erb (4.0ms)
+Completed 200 OK in 340ms (Views: 340.0ms | ActiveRecord: 0.0ms)
