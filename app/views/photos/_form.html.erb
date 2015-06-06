@@ -2,9 +2,8 @@
   <div id="upload_file">
     <button class="upload_button">Upload photo</button>
 
-	
-    <input id="file_photo" value="<%= f %>" required>
+    <input id="file_photo" >
 
-    <%= f.file_field :picture, { id: "upload"} %>
+    <%= f.file_field :picture, { id: "upload" } %>
   </div>
 <% end %>

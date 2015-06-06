@@ -1,15 +1,16 @@
 <section class="picture-box">
   <% @photos.each do |photo| %>
     <figure>
-    <a href="<%= photo_path( photo ) %>">
+    <a href="">
       <%= image_tag( photo.picture ) %>
     </a>
       <figcaption>
-        <a href="<%= photo_path( photo ) %>">
-          <%= image_tag( if photo.comments.count > 0 then "coment-active.png" else "coment-relaxed.png" end ) %>
-          <span><%= photo.comments.count %></span>
+        <a href="">
+          <%= image_tag( "coment-relaxed.png" ) %>
+          <span>1</span>
         </a>
       </figcaption>
     </figure>
+
   <% end %>
 </section>

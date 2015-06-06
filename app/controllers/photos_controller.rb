@@ -4,8 +4,8 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
     @photo = Photo.new
+    @photos = Photo.all
   end
 
   # GET /photos/1
@@ -72,6 +72,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:name, :description, :picture)
+      params.require(:photo).permit(:picture)
     end
 end
